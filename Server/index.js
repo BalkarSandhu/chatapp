@@ -9,8 +9,12 @@ const router = require('./router');
 
 const app = express();
 const server = http.createServer(app);
-const io = socketio(server);
-app.use(cors());
+const io = socketio(server,{
+  cors: {
+    origin: "http://localhost:3000",
+    methods: ["GET", "POST"]
+  }
+});
 app.use(router);
 
 io.on('connect', (socket) => {
